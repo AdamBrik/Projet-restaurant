@@ -1,13 +1,9 @@
-# Fichiers compilés (objets)
+
 *.o
 obj/*
 
-# Fichiers exécutables (Programmes finaux)
 bin/*
 client
-serveur_routage
-serveur_donnees
 
-# Fichiers de crash OS
 core
 vgcore.*
