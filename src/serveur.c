@@ -11,7 +11,7 @@ int main() {
     char buffer[1024];
     char reponse[1024] = "Commande acceptée";
 
-    printf("SERVEUR: Allumé. En attente du routeur...\n");
+    printf("SERVEUR: En attente du routeur...\n");
 
     int fd_r_s = open(TUBE_R_S, O_RDONLY);
     read(fd_r_s, buffer, sizeof(buffer));
