@@ -24,7 +24,7 @@ int main() {
 
     
     if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) {
-        perror("Erreur : Échec du bind (Le port est peut-être déjà utilisé)");
+        perror("Erreur : Échec du bind");
         exit(EXIT_FAILURE);
     }
 
@@ -34,10 +34,10 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    printf("==========================================\n");
+    
     printf(" LE SERVEUR EST OUVERT SUR 127.0.0.1:%d \n", PORT);
     printf(" En attente d'un client...\n");
-    printf("==========================================\n");
+   
 
     
     client_socket = accept(server_fd, (struct sockaddr *)&address, &addrlen);
