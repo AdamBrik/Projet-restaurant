@@ -1,57 +1,67 @@
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/socket.h>
+#include <unistd.h>
 #include <string.h>
-#include <unistd.h>      
-#include <arpa/inet.h>   
 
+#define NB_CLIENTS 2
+#define IP INADDR_ANY
 #define PORT 8080
+#define BACKLOG 3
 
 int main() {
-    int server_fd, client_socket;
-    struct sockaddr_in address;
-    socklen_t addrlen = sizeof(address);
+    int clients[NB_CLIENTS]; 
+    char buffer[1024] = {0}; 
+
+    struct sockaddr_in adresse;
+    adresse.sin_family = AF_INET;
+    adresse.sin_addr.s_addr = IP;     
+    adresse.sin_port = htons(PORT);   
+
+    int fdsocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    if (fdsocket == -1) {
+        perror("Erreur lors de la création de la socket");
+        return 0;
+    }
+
+    int result = bind(fdsocket, (struct sockaddr *)&adresse, sizeof(adresse));
+    if (result != 0) {
+        perror("Erreur bind (Le port 8080 est peut-être déjà pris)");
+        return 0;
+    }
+
+
+    result = listen(fdsocket, BACKLOG);
+    if (result != 0) {
+        perror("Erreur listen");
+        return 0;
+    }
+
+    
+    printf(" LE SERVEUR EST OUVERT SUR LE PORT %d \n", PORT);
+    
+
+    struct sockaddr_in client_adresse;
+    int taille = sizeof(client_adresse);
 
    
-    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
-        perror("Erreur : Échec de la création de la socket");
-        exit(EXIT_FAILURE);
+    int client = accept(fdsocket, (struct sockaddr *)&client_adresse, (socklen_t *)&taille);
+    if (client == -1) {
+        perror("Erreur lors de l'acceptation du client");
+        return 0;
     }
 
-   
-    address.sin_family = AF_INET;
-    address.sin_addr.s_addr = inet_addr("127.0.0.1"); 
-    address.sin_port = htons(PORT);                   
+    printf("[SUCCÈS] Un client vient de pousser la porte !\n");
 
-    
-    if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) {
-        perror("Erreur : Échec du bind");
-        exit(EXIT_FAILURE);
-    }
+  
+    read(client, buffer, sizeof(buffer));
+    printf("Message reçu du client : '%s'\n", buffer);
 
-    
-    if (listen(server_fd, 3) < 0) {
-        perror("Erreur : Échec de la mise en écoute");
-        exit(EXIT_FAILURE);
-    }
+  
+    close(client);
+    close(fdsocket);
+    printf("Fermeture du restaurant.\n");
 
-    
-    printf(" LE SERVEUR EST OUVERT SUR 127.0.0.1:%d \n", PORT);
-    printf(" En attente d'un client...\n");
-   
-
-    
-    client_socket = accept(server_fd, (struct sockaddr *)&address, &addrlen);
-    if (client_socket < 0) {
-        perror("Erreur : Échec de la connexion avec le client");
-        exit(EXIT_FAILURE);
-    }
-
-    printf("\n[SUCCÈS] Un client vient de pousser la porte du restaurant !\n");
-
- 
-    close(client_socket);
-    close(server_fd);
-    printf("Fermeture du serveur.\n");
-
-    return EXIT_SUCCESS;
+    return 0;
 }
