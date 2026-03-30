@@ -1,47 +1,28 @@
-#include <arpa/inet.h>
-#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/socket.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <string.h>
 
-#define NB_CLIENTS 2
-#define IP "127.0.0.1"
-#define PORT 8080
+#define TUBE_C_R "/tmp/tube_C_vers_R"
+#define TUBE_R_C "/tmp/tube_R_vers_C"
 
 int main() {
-    struct sockaddr_in adresse;
-    char *message = "Bonjour Serveur, je voudrais reserver une table !";
+    char message[] = "Bonjour, je voudrais une table !";
+    char buffer[1024];
 
-    adresse.sin_family = AF_INET;
-    adresse.sin_addr.s_addr = inet_addr(IP); 
-    adresse.sin_port = htons(PORT);         
+    printf("[CLIENT] Connexion au routeur...\n");
 
-    
-    int fdsocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (fdsocket == -1) {
-        perror("Erreur lors de la création de la socket");
-        return 0;
-    }
+    int fd_c_r = open(TUBE_C_R, O_WRONLY);
+    write(fd_c_r, message, strlen(message) + 1);
+    close(fd_c_r);
+    printf("[CLIENT] Message envoyé : %s\n", message);
 
-    printf("Tentative de connexion au serveur %s:%d...\n", IP, PORT);
+    int fd_r_c = open(TUBE_R_C, O_RDONLY);
+    read(fd_r_c, buffer, sizeof(buffer));
+    close(fd_r_c);
 
-   
-    int result = connect(fdsocket, (struct sockaddr *)&adresse, sizeof(adresse));
-    if (result != 0) {
-        perror("Erreur connect (Le serveur est-il bien allumé ?)");
-        return 0;
-    }
+    printf("[CLIENT] Réponse finale reçue : %s\n", buffer);
 
-    printf("[SUCCÈS] Connecté au serveur !\n");
-
-    
-    send(fdsocket, message, strlen(message), 0);
-    printf("Message envoyé : '%s'\n", message);
-
-  
-    close(fdsocket);
-    
     return 0;
 }
