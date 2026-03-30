@@ -21,13 +21,13 @@ int main() {
 
     int fdsocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (fdsocket == -1) {
-        perror("Erreur lors de la création de la socket");
+        perror("Erreur socket");
         return 0;
     }
 
     int result = bind(fdsocket, (struct sockaddr *)&adresse, sizeof(adresse));
     if (result != 0) {
-        perror("Erreur bind (Le port 8080 est peut-être déjà pris)");
+        perror("Erreur bind ");
         return 0;
     }
 
@@ -48,11 +48,11 @@ int main() {
    
     int client = accept(fdsocket, (struct sockaddr *)&client_adresse, (socklen_t *)&taille);
     if (client == -1) {
-        perror("Erreur lors de l'acceptation du client");
+        perror("Erreur client");
         return 0;
     }
 
-    printf("[SUCCÈS] Un client vient de pousser la porte !\n");
+    printf("SUCCÈS : Un client vient de se connecter\n");
 
   
     read(client, buffer, sizeof(buffer));
