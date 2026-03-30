@@ -8,21 +8,21 @@
 #define TUBE_R_C "/tmp/tube_R_vers_C"
 
 int main() {
-    char message[] = "Bonjour, je voudrais une table !";
+    char message[] = "CLIENT: test ";
     char buffer[1024];
 
-    printf("[CLIENT] Connexion au routeur...\n");
+    printf("CLIENT: Connexion au routeur...\n");
 
     int fd_c_r = open(TUBE_C_R, O_WRONLY);
     write(fd_c_r, message, strlen(message) + 1);
     close(fd_c_r);
-    printf("[CLIENT] Message envoyé : %s\n", message);
+    printf("CLIENT: Message envoyé : %s\n", message);
 
     int fd_r_c = open(TUBE_R_C, O_RDONLY);
     read(fd_r_c, buffer, sizeof(buffer));
     close(fd_r_c);
 
-    printf("[CLIENT] Réponse finale reçue : %s\n", buffer);
+    printf("CLIENT: Réponse finale reçue : %s\n", buffer);
 
     return 0;
 }

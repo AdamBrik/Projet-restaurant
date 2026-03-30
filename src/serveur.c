@@ -22,7 +22,7 @@ int main() {
     write(fd_s_r, reponse, strlen(reponse) + 1);
     close(fd_s_r);
 
-    printf("SERVEUR: Réponse envoyée. Je ferme.\n");
+    printf("SERVEUR: Réponse envoyée fin.\n");
 
     return 0;
 }
