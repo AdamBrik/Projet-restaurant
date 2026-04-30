@@ -1,0 +1,10 @@
+2026-04-28 15:22:25.685 [error] Ignoring terminal.integrated.initialHint.copilotCli as terminal.integrated.initialHint is true
+2026-04-28 15:22:27.173 [info] Started local extension host with pid 4893.
+2026-04-28 15:22:27.348 [info] Started initializing default profile extensions in extensions installation folder. file:///root/.vscode/extensions
+2026-04-28 15:22:28.313 [info] Completed initializing default profile extensions in extensions installation folder. file:///root/.vscode/extensions
+2026-04-28 15:22:28.575 [error] Ignoring terminal.integrated.initialHint.copilotCli as terminal.integrated.initialHint is true
+2026-04-28 15:22:30.597 [error] Unable to create workbench contribution 'workbench.contrib.agentHostTerminal'. [createInstance] wbe depends on UNKNOWN service remoteAgentHostService.
+2026-04-28 15:22:31.473 [info] Settings Sync: Account status changed from uninitialized to unavailable
+2026-04-28 15:22:33.819 [info] Auto updating outdated extensions. github.copilot-chat
+2026-04-28 15:22:34.288 [info] [perf] Render performance baseline is 17ms
+2026-04-28 15:22:53.343 [info] Auto updating outdated extensions. github.copilot-chat
