@@ -1,3 +1,0 @@
-"resto1" 1111 "menu_1.txt"
-"resto2" 2222 "menu_2.txt"
-"resto3" 3333 "menu_3.txt"
