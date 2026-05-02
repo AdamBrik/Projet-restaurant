@@ -1,1 +1,4 @@
-1. Café gourmand 5€  2. Tiramisu 6€  3. Panna Cotta 5€
+Salade Quinoa (quinoa, tomate, concombre)
+Burger Végétarien (pain, steak_soja, salade, tomate)
+Soupe Potiron (potiron, creme)
+Salade de fruits (pomme, banane, fraise)

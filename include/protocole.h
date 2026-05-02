@@ -6,12 +6,13 @@ typedef struct {
     int numero_table; 
     int id_plat;      
     int quantite;
-    int id_client;    
+    int id_client;
+    char filtre[50];
 } Commande;
 
 typedef struct {
     int statut;
-    char message[256];
+    char message[1024];
     int id_client;    
 } Reponse;
 

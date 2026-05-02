@@ -16,7 +16,7 @@ client: $(SRC_DIR)/client.c
 
 
 serveur: $(SRC_DIR)/serveur.c
-	$(CC) $(CFLAGS) -o $(BIN_DIR)/serveur $(SRC_DIR)/serveur.c
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/serveur $(SRC_DIR)/serveur.c -pthread
 
 
 routeur: $(SRC_DIR)/routeur.c

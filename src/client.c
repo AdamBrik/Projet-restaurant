@@ -6,7 +6,6 @@
 
 int main(int argc, char *argv[]) {
     if (argc != 3) {
-        fprintf(stderr, "Usage: %s <tube_vers_routeur> <tube_vers_client>\n", argv[0]);
         return EXIT_FAILURE;
     }
 
@@ -28,9 +27,11 @@ int main(int argc, char *argv[]) {
             cmd.id_client = mon_id; 
             
             if (!commande_est_valide(&cmd)) {
-                fprintf(stderr, "[CLIENT] QR Code contient des données corrompues.\n");
+                fprintf(stderr, "CLIENT: QR Code contient des données corrompues.\n");
                 continue;
             }
+            printf("Avez-vous une allergie ou un ingrédient à éviter ? (Tapez l'ingrédient, ou 'aucun') : ");
+    scanf("%49s", cmd.filtre);
 
             int fd_c_r = open(tube_c_r, O_WRONLY);
             if (fd_c_r != -1) {
